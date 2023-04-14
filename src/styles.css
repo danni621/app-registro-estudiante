@@ -1,1 +1,41 @@
 /* You can add global styles to this file, and also import other style files */
+
+body {
+    margin: 0;
+    font-family: var(--bs-font-sans-serif);
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #181C32;
+    background-color: #5710b2 !important;
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    align-items: center;
+}
+
+
+/* Mobile */
+.form-signin {
+    padding: 20px;
+    margin: auto;
+}
+
+/* Tablet */
+@media (min-width:600px) {
+    .form-signin {
+        padding: 80px;
+        margin: auto;
+    }
+}
+
+/* Desktop */
+@media (min-width:900px) {
+    .form-signin {
+        padding: 80px;
+        margin: auto;
+    }
+}
+
+.swal2-container {
+    z-index: 10000 !important;
+}

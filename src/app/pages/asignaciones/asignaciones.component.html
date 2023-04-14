@@ -1,0 +1,114 @@
+<main class="form-signin">
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-6">
+                <div class="card shadow">
+                    <div class="card-header bg-secondary text-white">
+                        <h4 class="mb-0">Asignacion Clases - Estudiante {{nombre}}</h4>
+                    </div>
+                    <div class="card-body">
+                        <form [formGroup]="formulario" (ngSubmit)="guardar()">
+                            <div class="form-group">
+                                <label for="cursos">Seleccione:</label>
+                                <ng-multiselect-dropdown [placeholder]="'Cursos'" [settings]="dropdownSettings"
+                                    formControlName="cursos" [data]="dropdownList" [class.is-invalid]="cursosNoValido"
+                                    (onSelect)="onItemSelect($event)">
+                                </ng-multiselect-dropdown>
+                                <div *ngIf="cursosNoValido" class="invalid-feedback">
+                                    Debe seleccionar cursos
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 col-md-4 col-lg-4 text-center">
+                                    <div class="card-body">
+                                        <button type="button" class="btn btn-primary btn-block" data-bs-toggle="modal"
+                                            (click)="verRegistros()" data-bs-target="#ModalRegistros">Ver
+                                            Registros</button>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-4 col-lg-4 text-center">
+                                    <div class="card-body">
+                                        <button type="submit" class="btn btn-secondary btn-block">Asignar</button>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-4 col-lg-4 text-center">
+                                    <div class="card-body">
+                                        <button type="button" class="btn btn-success btn-block" data-bs-toggle="modal"
+                                            (click)="verClases()" data-bs-target="#ModalClases">Ver Clases</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 col-lg-12 text-rigth">
+                                    <div class="card-body">
+                                        <button type="button" (click)="CerrarSesion()"
+                                            class="btn btn-secondary btn-block">Cerrar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- Modal -->
+<div class="modal fade" id="ModalRegistros" tabindex="-1" aria-labelledby="ModalRegistros" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Registro Estudiantes</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Email</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let estudiante of registrosestudi; let i = index">
+                            <th scope="row">{{i + 1}}</th>
+                            <td>{{estudiante.nombre}}</td>
+                            <td>{{estudiante.email}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="ModalClases" tabindex="-1" aria-labelledby="ModalClases" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Materia (Compañeros con los que compartes clase)
+                </h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nombre - (Materia)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let estudiante of estudMater; let i = index">
+                            <td>{{estudiante}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
