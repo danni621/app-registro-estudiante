@@ -71,8 +71,8 @@ export class EstudianteComponent implements OnInit {
       this.functions.PopUpAlert('', 'info', 'Espere por favor', false, true);
       localStorage.setItem('nombre', this.functions.functionEncryDesc('encriptar', this.estudiante.nombre));
       this.service.loginSigner(this.estudiante).subscribe({
-        next: (res) => this.nextLoginSigner(res),
-        error: (err) => this.functions.PopUpAlert('Error en el servidor', 'error', err.error, true, false)
+        next: (res: any) => this.nextLoginSigner(res),
+        error: (err: any) => this.functions.PopUpAlert('Error en el servidor', 'error', err.error, true, false)
       });
 
     }

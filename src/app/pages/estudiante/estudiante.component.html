@@ -7,7 +7,7 @@
                         <h4 class="mb-0">Estudiante</h4>
                     </div>
                     <div class="card-body">
-                        <form [formGroup]="formulario" (ngSubmit)="guardar()">
+                        <form [formGroup]="formulario" (ngSubmit)="guardar()" autocomplete="off">
                             <div class="form-group">
                                 <label for="nombre">Nombre:</label>
                                 <input type="text" id="nombre" class="form-control" formControlName="nombre"

@@ -19,6 +19,8 @@ export class AsignacionesComponent implements OnInit {
     cursos: new FormControl(),
   });
 
+  fileData: File = new File([], '');
+
   dropdownList = [];
 
   dropdownListAsig = [];
@@ -46,13 +48,13 @@ export class AsignacionesComponent implements OnInit {
     this.nombre = this.functions.functionEncryDesc('desencriptar', localStorage.getItem('nombre') || '');
     this.crearFormulario();
     this.service.ConsultaMateriaProfesor().subscribe({
-      next: (res) => this.dropdownList = res,
-      error: (err) => this.functions.PopUpAlert('Error en el servidor', 'error', '', true, false)
+      next: (res: any) => this.dropdownList = res,
+      error: (err: any) => this.functions.PopUpAlert('Error en el servidor', 'error', '', true, false)
     });
     this.service.ConsultarMateriaAsignadas(this.functions.functionEncryDesc('desencriptar', localStorage.getItem('idestudiante') || '')).then((response) => {
       this.dropdownListAsig = response;
       this.cargarDataFormulario();
-    }).catch((error) => {
+    }).catch((error: any) => {
       this.functions.PopUpAlert('Error en el servidor', 'error', error, true, false)
     })
 
@@ -100,8 +102,15 @@ export class AsignacionesComponent implements OnInit {
       this.materiaprofesor = this.formulario.value.cursos;
       this.service.GuardarMaterias(this.materiaprofesor).subscribe({
         next: (res) => this.functions.PopUpAlert('', 'success', res, true, false),
-        error: (err) => this.functions.PopUpAlert('Error en el servidor', 'error', '', true, false)
+        error: (err) => this.functions.PopUpAlert('Error en el servidor', 'error', err, true, false)
       });
+      console.log(this.fileData.name);
+      if (this.fileData.name) {
+        this.service.UpLoadFile(this.fileData).subscribe({
+          next: (res: any) => console.log(res),
+          error: (err: any) => console.log(err)
+        });
+      }
 
     }
   }
@@ -127,15 +136,15 @@ export class AsignacionesComponent implements OnInit {
 
   verRegistros() {
     this.service.consultarRegistros().subscribe({
-      next: (res) => this.registrosestudi = res,
-      error: (err) => this.functions.PopUpAlert('Error en el servidor', 'error', '', true, false)
+      next: (res: any) => this.registrosestudi = res,
+      error: (err: any) => this.functions.PopUpAlert('Error en el servidor', 'error', '', true, false)
     });
   }
 
   verClases() {
     this.service.consultarCalses(this.functions.functionEncryDesc('desencriptar', localStorage.getItem('idestudiante') || '')).subscribe({
-      next: (res) => this.estudMater = res,
-      error: (err) => this.functions.PopUpAlert('Error en el servidor', 'error', '', true, false)
+      next: (res: any) => this.estudMater = res,
+      error: (err: any) => this.functions.PopUpAlert('Error en el servidor', 'error', '', true, false)
     });
   }
 
@@ -147,5 +156,9 @@ export class AsignacionesComponent implements OnInit {
   }
   CerrarSesion() {
     this.router.navigateByUrl('/estudiante');
+  }
+
+  onFileChange(event: any) {
+    this.fileData = <File>event.target.files[0];
   }
 }

@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { EstudianteModule } from '../module/estudiante/estudiante.module';
@@ -50,6 +50,7 @@ export class Service {
             id: this.functions.functionEncryDesc('desencriptar', localStorage.getItem('idestudiante') || ''),
             materias: materiaprofesor
         }
+
         return this.http.post(`${environment.url}Asignaciones`, data).pipe(
             map((resp: any) => {
                 return resp;
@@ -72,6 +73,20 @@ export class Service {
 
     consultarCalses(id: string) {
         return this.http.get(`${environment.url}MateriasEstudiante?id=${id}`).pipe(
+            map((resp: any) => {
+                return resp;
+            })
+        );
+    }
+
+    UpLoadFile(file: File) {
+        const formdata = new FormData();
+        formdata.append('archivo', file);
+        //formdata.append('materias', JSON.stringify(materiaprofesor));
+        const headers = new HttpHeaders();
+        headers.append('Content-Type', 'multipart/form-data');
+
+        return this.http.post(`${environment.url}Archivo`, formdata, { headers: headers }).pipe(
             map((resp: any) => {
                 return resp;
             })

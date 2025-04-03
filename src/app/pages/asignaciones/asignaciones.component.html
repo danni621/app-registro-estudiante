@@ -1,13 +1,13 @@
 <main class="form-signin">
     <div class="container-fluid">
         <div class="row justify-content-center">
-            <div class="col-md-6 col-lg-6">
+            <div class="col-md-6 col-lg-12">
                 <div class="card shadow">
                     <div class="card-header bg-secondary text-white">
                         <h4 class="mb-0">Asignacion Clases - Estudiante {{nombre}}</h4>
                     </div>
                     <div class="card-body">
-                        <form [formGroup]="formulario" (ngSubmit)="guardar()">
+                        <form [formGroup]="formulario" (ngSubmit)="guardar()" autocomplete="off">
                             <div class="form-group">
                                 <label for="cursos">Seleccione:</label>
                                 <ng-multiselect-dropdown [placeholder]="'Cursos'" [settings]="dropdownSettings"
@@ -18,6 +18,10 @@
                                     Debe seleccionar cursos
                                 </div>
                             </div>
+                            <!--<div class="form-group">
+                                <label for="archivo">Subir Archivo:</label>
+                                <input type="file" id="archivo" class="form-control" (change)="onFileChange($event)">
+                            </div>-->
                             <div class="row">
                                 <div class="col-sm-12 col-md-4 col-lg-4 text-center">
                                     <div class="card-body">
